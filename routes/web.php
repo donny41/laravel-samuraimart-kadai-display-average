@@ -1,7 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\FavoriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +32,16 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+// Route::resource('products', ProductController::class);
+
+// Route::resource('reviews', ReviewController::class);
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('products', ProductController::class);
+
+    Route::resource('reviews', ReviewController::class);
+
+    Route::post('favorites/{product_id}', [FavoriteController::class, 'store'])->name('favorites.store');
+    Route::delete('favorites/{product_id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+});
