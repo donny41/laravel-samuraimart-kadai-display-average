@@ -15,6 +15,9 @@
                 @elseif ($keyword !== null)
                     <a href="{{ route('products.index') }}">トップ</a> > 商品一覧
                     <h1>"{{ $keyword }}"の検索結果{{ $total_count }}件</h1>
+                {{-- 新着商品 --}}
+                {{-- @elseif ($latest !== null)                
+                    <a href="{{ route('products.index') }}">新着商品</a> --}}
                 @endif
             </div>
             <div>
