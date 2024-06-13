@@ -12,8 +12,11 @@
                  <div class="col-md-7 mt-2">
                      <div class="d-inline-flex">
                          <a href="{{ route('products.show', $favorite_product->id) }}" class="w-25">
-                             <img src="{{ asset('img/dummy.png')}}" class="img-fluid w-100">
-                         </a>
+                            @if ($favorite_product->image !== "")
+                            <img src="{{ asset($favorite_product->image) }}" class="img-fluid w-100">
+                        @else
+                            <img src="{{ asset('img/dummy.png') }}" class="img-fluid w-100">
+                        @endif                         </a>
                          <div class="container mt-3">
                              <h5 class="w-100 samuraimart-favorite-item-text">{{ $favorite_product->name }}</h5>
                              <h6 class="w-100 samuraimart-favorite-item-text">&yen;{{ $favorite_product->price }}</h6>
