@@ -23,5 +23,6 @@ Route::group([
     $router->resource('products', ProductController::class);
     $router->resource('major-categories', MajorCategoryController::class);
     $router->resource('users', UserController::class);
+    $router->post('products/import', [ProductController::class, 'csvImport']);
 
 });

@@ -16,9 +16,6 @@
                 @elseif ($keyword !== null)
                     <a href="{{ route('products.index') }}">トップ</a> > 商品一覧
                     <h1>"{{ $keyword }}"の検索結果{{ $total_count }}件</h1>
-                    {{-- 新着商品 --}}
-                    {{-- @elseif ($latest !== null)                
-                    <a href="{{ route('products.index') }}">新着商品</a> --}}
                 @endif
             </div>
             <div>
@@ -42,6 +39,29 @@
                                 <div class="col-12">
                                     <p class="samuraimart-product-label mt-2">
                                         {{ $product->name }}<br>
+
+                                        {{-- 平均レビュー --}}
+                                        @if ($product->reviews->avg('score') > 4)
+                                            <span class="review-score-color">★★★★★</span>
+                                        @elseif ($product->reviews->avg('score') > 3)
+                                            <span class="review-score-color">★★★★</span><span
+                                                class="text-body-tertiary">★</span>
+                                        @elseif ($product->reviews->avg('score') > 2)
+                                            <span class="review-score-color">★★★</span><span
+                                                class="text-body-tertiary">★★</span>
+                                        @elseif ($product->reviews->avg('score') > 1)
+                                            <span class="review-score-color">★★</span><span
+                                                class="text-body-tertiary">★★★</span>
+                                        @elseif ($product->reviews->avg('score') > 0)
+                                            <span class="review-score-color">★</span><span
+                                                class="text-body-tertiary">★★★★</span>
+                                        @else
+                                            <span class="text-body-tertiary">★★★★★</span>
+                                        @endif
+                                        <span
+                                            class="text-body-tertiary">{{ round($product->reviews->avg('score'), 1) }}</span>
+                                        <br>
+
                                         <label>￥{{ $product->price }}</label>
                                     </p>
                                 </div>

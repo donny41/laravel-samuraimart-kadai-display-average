@@ -5,10 +5,11 @@
         <div class="row w-75">
             <div class="col-5 offset-1">
                 @if ($product->image)
-                <img src="{{ asset($product->image) }}" class="w-100 img-fluid">
+                    <img src="{{ asset($product->image) }}" class="w-100 img-fluid">
                 @else
-                <img src="{{ asset('img/dummy.png')}}" class="w-100 img-fluid">
-                @endif            </div>
+                    <img src="{{ asset('img/dummy.png') }}" class="w-100 img-fluid">
+                @endif
+            </div>
             <div class="col">
                 <div class="d-flex flex-column">
                     <h1 class="">
@@ -78,6 +79,22 @@
             <div class="offset-1 col-11">
                 <hr class="w-100">
                 <h3 class="float-left">カスタマーレビュー</h3>
+                <div class="float-left">
+                    @if ($average_review_score > 4)
+                        <span class="review-score-color">★★★★★</span>
+                    @elseif ($average_review_score > 3)
+                        <span class="review-score-color">★★★★</span><span class="text-body-tertiary">★</span>
+                    @elseif ($average_review_score > 2)
+                        <span class="review-score-color">★★★</span><span class="text-body-tertiary">★★</span>
+                    @elseif ($average_review_score > 1)
+                        <span class="review-score-color">★★</span><span class="text-body-tertiary">★★★</span>
+                    @elseif ($average_review_score > 0)
+                        <span class="review-score-color">★</span><span class="text-body-tertiary">★★★★</span>
+                    @else
+                        <span class="text-body-tertiary">★★★★★</span>
+                    @endif
+                    <span class="text-body-tertiary">{{ $average_review_score }}</span>
+                </div>
             </div>
 
             <div class="offset-1 col-10">

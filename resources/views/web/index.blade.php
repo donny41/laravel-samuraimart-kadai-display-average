@@ -10,24 +10,47 @@
             <h1>おすすめ商品</h1>
             <div class="row">
                 @foreach ($recommend_products as $recommend_product)
-             <div class="col-4">
-                 <a href="{{ route('products.show', $recommend_product) }}">
-                     @if ($recommend_product->image !== "")
-                     <img src="{{ asset($recommend_product->image) }}" class="img-thumbnail">
-                     @else
-                     <img src="{{ asset('img/dummy.png')}}" class="img-thumbnail">
-                     @endif
-                 </a>
-                 <div class="row">
-                     <div class="col-12">
-                         <p class="samuraimart-product-label mt-2">
-                             {{ $recommend_product->name }}<br>
-                             <label>￥{{ $recommend_product->price }}</label>
-                         </p>
-                     </div>
-                 </div>
-             </div>
-             @endforeach
+                    <div class="col-4">
+                        <a href="{{ route('products.show', $recommend_product) }}">
+                            @if ($recommend_product->image !== '')
+                                <img src="{{ asset($recommend_product->image) }}" class="img-thumbnail">
+                            @else
+                                <img src="{{ asset('img/dummy.png') }}" class="img-thumbnail">
+                            @endif
+                        </a>
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="samuraimart-product-label mt-2">
+                                    {{ $recommend_product->name }}<br>
+
+                                    {{-- 平均レビュー --}}
+                                    @if ($recommend_product->reviews->avg('score') > 4)
+                                        <span class="review-score-color">★★★★★</span>
+                                    @elseif ($recommend_product->reviews->avg('score') > 3)
+                                        <span class="review-score-color">★★★★</span><span
+                                            class="text-body-tertiary">★</span>
+                                    @elseif ($recommend_product->reviews->avg('score') > 2)
+                                        <span class="review-score-color">★★★</span><span
+                                            class="text-body-tertiary">★★</span>
+                                    @elseif ($recommend_product->reviews->avg('score') > 1)
+                                        <span class="review-score-color">★★</span><span
+                                            class="text-body-tertiary">★★★</span>
+                                    @elseif ($recommend_product->reviews->avg('score') > 0)
+                                        <span class="review-score-color">★</span><span
+                                            class="text-body-tertiary">★★★★</span>
+                                    @else
+                                        <span class="text-body-tertiary">★★★★★</span>
+                                    @endif
+                                    <span
+                                        class="text-body-tertiary">{{ round($recommend_product->reviews->avg('score'), 1) }}</span>
+                                    <br>
+
+                                    <label>￥{{ $recommend_product->price }}</label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
 
             <div class="d-flex justify-content-between">
@@ -36,24 +59,47 @@
             </div>
             <div class="row">
                 @foreach ($recently_products as $recently_product)
-                <div class="col-3">
-                    <a href="{{ route('products.show', $recently_product) }}">
-                        @if ($recently_product->image !== "")
-                            <img src="{{ asset($recently_product->image) }}" class="img-thumbnail">
-                        @else
-                            <img src="{{ asset('img/dummy.png')}}" class="img-thumbnail">
-                        @endif
-                    </a>
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="samuraimart-product-label mt-2">
-                                {{ $recently_product->name }}<br>
-                                <label>￥{{ $recently_product->price }}</label>
-                            </p>
+                    <div class="col-3">
+                        <a href="{{ route('products.show', $recently_product) }}">
+                            @if ($recently_product->image !== '')
+                                <img src="{{ asset($recently_product->image) }}" class="img-thumbnail">
+                            @else
+                                <img src="{{ asset('img/dummy.png') }}" class="img-thumbnail">
+                            @endif
+                        </a>
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="samuraimart-product-label mt-2">
+                                    {{ $recently_product->name }}<br>
+
+                                    {{-- 平均レビュー --}}
+                                    @if ($recently_product->reviews->avg('score') > 4)
+                                        <span class="review-score-color">★★★★★</span>
+                                    @elseif ($recently_product->reviews->avg('score') > 3)
+                                        <span class="review-score-color">★★★★</span><span
+                                            class="text-body-tertiary">★</span>
+                                    @elseif ($recently_product->reviews->avg('score') > 2)
+                                        <span class="review-score-color">★★★</span><span
+                                            class="text-body-tertiary">★★</span>
+                                    @elseif ($recently_product->reviews->avg('score') > 1)
+                                        <span class="review-score-color">★★</span><span
+                                            class="text-body-tertiary">★★★</span>
+                                    @elseif ($recently_product->reviews->avg('score') > 0)
+                                        <span class="review-score-color">★</span><span
+                                            class="text-body-tertiary">★★★★</span>
+                                    @else
+                                        <span class="text-body-tertiary">★★★★★</span>
+                                    @endif
+                                    <span
+                                        class="text-body-tertiary">{{ round($recently_product->reviews->avg('score'), 1) }}</span>
+                                    <br>
+
+                                    <label>￥{{ $recently_product->price }}</label>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
             </div>
         </div>
     </div>

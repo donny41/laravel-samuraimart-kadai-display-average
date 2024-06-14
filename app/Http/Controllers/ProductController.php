@@ -36,7 +36,7 @@ class ProductController extends Controller
 
         $categories = Category::all();
         $major_categories = MajorCategory::all();
-
+        
         return view('products.index', compact('products', 'category', 'major_category', 'categories', 'major_categories', 'total_count', 'keyword'));
 
     }
@@ -72,8 +72,9 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $reviews = $product->reviews()->get();
+        $average_review_score = round($reviews->pluck('score')->average(),1);
 
-        return view('products.show', compact('product', 'reviews'));
+        return view('products.show', compact('product', 'reviews', 'average_review_score'));
     }
 
     /**

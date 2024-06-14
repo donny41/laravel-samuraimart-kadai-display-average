@@ -10,15 +10,28 @@ class Product extends Model
 {
     use HasFactory, Sortable;
 
-    public function category(){
+    protected $fillable = [
+        'name',
+        'description',
+        'price',
+        'category_id',
+        'image',
+        'recommend_flag',
+        'carriage_flag',
+    ];
+
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
 
-    public function reviews(){
+    public function reviews()
+    {
         return $this->hasMany(Review::class);
     }
 
-    public function favorited_users(){
+    public function favorited_users()
+    {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 
